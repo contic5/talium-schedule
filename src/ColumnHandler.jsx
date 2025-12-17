@@ -18,7 +18,7 @@ function ColumnHandler(props)
     if(column=="Start" || column=="End")
     {
         options=props.unique_values.map(
-            unique_value => <option value={unique_value}>{decimal_to_written_time(unique_value)}</option>
+            unique_value => <option value={decimal_to_written_time(unique_value)}>{decimal_to_written_time(unique_value)}</option>
         );
     }
     else
@@ -34,8 +34,10 @@ function ColumnHandler(props)
         <td>
         <button onClick={() => props.update_sort(column,"ASC")}>ASC</button>
         <button onClick={() => props.update_sort(column,"DESC")}>DESC</button>
-        <input value={props.input_value} name={column} onChange={props.handleInputs}/>
-        <select onChange={props.handleSelects} name={column} value={props.select_value}>{options}</select>
+        <input value={props.input_value} name={column} id={column} list={column+"_values"} onChange={props.handleInputs}/>
+        <datalist id={column+"_values"}>
+        {options}
+        </datalist>
         </td>
     )
 }

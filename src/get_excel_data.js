@@ -1,5 +1,6 @@
 
 import readXlsxFile from 'read-excel-file';
+const base_url = import.meta.env.BASE_URL
 
 async function to_dictionaries(rows)
 {
@@ -18,7 +19,7 @@ async function to_dictionaries(rows)
 }
 export async function get_excel_data(file_name)
 {
-    return await fetch(`../public/${file_name}`)
+    return await fetch(`${base_url}${file_name}`)
   .then(response => response.blob())
   .then(blob => readXlsxFile(blob))
   .then(async(rows) => {

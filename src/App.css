@@ -1,6 +1,7 @@
 main
 {
   max-width: 1050px;
+  min-height: 100vh;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;

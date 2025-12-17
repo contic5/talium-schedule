@@ -8,18 +8,32 @@ const file_name="Class_Data.xlsx";
 const columns=["ID","Name/Rank","Day","Start","End","Age"];
 
 function App() {
+  function decimal_to_written_time(num)
+  {
+      //Convert
+      num*=24;
+      let hours = Math.floor(num);
+      const minutes = Math.round((num - hours) * 60);
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12 || 12; // Convert to 12-hour format
+      return `${hours}:${String(minutes).padStart(2, '0')} ${ampm}`;
+  }
   function filter_data(sorted_data)
   {
     for(let column of columns)
     {
       //Check input values to filter
-      if(inputs[column])
+      let input_value=inputs[column];
+      if(input_value)
       {
-
         //Filter with includes if the input is a string. Otherwise filter by equality.
-        if(isNaN(inputs[column]))
+        if(column=="Start"||column=="End")
         {
-          sorted_data=sorted_data.filter(taekwondo_class => taekwondo_class[column].includes(inputs[column]));
+          sorted_data=sorted_data.filter(organization => decimal_to_written_time(organization[column])==input_value);
+        }
+        else if(isNaN(input_value))
+        {
+          sorted_data=sorted_data.filter(organization => organization[column].toUpperCase().includes(input_value.toUpperCase()));
         }
         else
         {
@@ -33,7 +47,7 @@ function App() {
         //Filter with includes if the input is a string. Otherwise filter by equality.
         if(isNaN(selects[column]))
         {
-          sorted_data=sorted_data.filter(taekwondo_class => taekwondo_class[column].includes(selects[column]));
+          sorted_data=sorted_data.filter(organization => organization[column].toUpperCase().includes(selects[column].toUpperCase()));
         }
         else
         {
@@ -93,13 +107,13 @@ function App() {
   function update_sort(column,direction)
   {
     //Sorting by Day does not make sense. This will sort by Day Number instead.
-    if(column!="Day")
+    if(column=="Day")
     {
-      setSort_Column(column);
+      setSort_Column("Day_Number");
     }
     else
     {
-      setSort_Column("Day_Number");
+      setSort_Column(column);
     }
     setSort_Direction(direction);
   }
