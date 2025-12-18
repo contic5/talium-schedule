@@ -253,7 +253,9 @@ function App() {
 
   return (
     <>
-    <h1>Talium Classes</h1>
+    <img src="talium_logo.jpg"></img>
+    <h1>Talium Taekwondo Class Finder</h1>
+    <p>Use this tool to find what classes you can go to. Filter by rank, day or age to find what class will work best for  you.</p>
     <table>
     <thead><tr>{columns_mapped_head}</tr></thead>
     <tbody><tr>{columns_mapped_body}</tr></tbody>

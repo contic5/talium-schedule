@@ -1,8 +1,8 @@
 {
-  "name": "talium-schedule",
+  "name": "talium-class-finder",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://contic5.github.io/talium-schedule",
+  "homepage": "https://contic5.github.io/talium-class-finder",
   "type": "module",
   "scripts": {
     "dev": "vite",
