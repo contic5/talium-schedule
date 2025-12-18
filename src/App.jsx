@@ -137,6 +137,10 @@ function App() {
   //Get all unique values from a column
   function get_unique_values(column)
   {
+    if(column.includes("Rank")||column.includes("Name"))
+    {
+      return ["Tigers","Children","Teen","Adult","No Belt","White","Yellow","Orange","Green","Blue","Purple","Red","Brown","Jr Black","Black: 1 Dan","Black: 2 Dan","Black: 3 Dan","Sparring (Children)","Sparring (Teen/Adult)","SWAT Demo Team","Leadership Team","Other"]
+    }
     let unique_values={};
     if(!taekwondo_class_dictionaries)
     {
@@ -151,6 +155,7 @@ function App() {
         const parts=taekwondo_class_dictionary[column].split(" | ")
         for(let part of parts)
         {
+          part=part.trim();
           unique_values[part]=true;
         }
       }
@@ -205,8 +210,15 @@ function App() {
   {
     let unique_values=get_unique_values(column);
 
-    //Sort the unique values
-    unique_values=unique_values.sort()
+    //Sort the unique values except for name/rank column
+    if(!column.includes("Rank")&&!column.includes("Name"))
+    {
+      unique_values=unique_values.sort();
+    }
+    else
+    {
+        console.log(unique_values);
+    }
 
     //For the day column, the unique values are the day of the week.
     if(column=="Day")
