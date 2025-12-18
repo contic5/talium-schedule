@@ -89,18 +89,33 @@ function App() {
   function display_data()
   {
       console.log("Sorting with "+sort_column+" "+sort_direction);
-      let sorted_data=[...taekwondo_class_dictionaries];
+      let data=[...taekwondo_class_dictionaries];
+      let filtered_data=filter_data(data)
+      console.log(filtered_data);
 
-      //Filter and sort data before displaying it
-      sorted_data=filter_data(sorted_data)
-      sorted_data=sort_data(sorted_data);
+      //Make sure we have data to sort before trying to sort it
+      if(filtered_data&&filtered_data.length>0)
+      {
+        //Filter and sort data before displaying it
+        let sorted_data=sort_data(filtered_data);
+        
+        console.log(sorted_data);
 
-      
-      console.log(sorted_data);
-
-      //Create a TaekwondoElement for each Taekwondo Class
-      let taekwondo_class_elements=sorted_data.map(taekwondo_class => <TaekwondoElement key={taekwondo_class.ID} taekwondo_class={taekwondo_class}></TaekwondoElement>);
-      setTaekwondo_Elements_Mapped(taekwondo_class_elements);
+        //Create a TaekwondoElement for each Taekwondo Class
+        let taekwondo_class_elements=sorted_data.map(taekwondo_class => <TaekwondoElement key={taekwondo_class.ID} taekwondo_class={taekwondo_class}></TaekwondoElement>);
+        setTaekwondo_Elements_Mapped(taekwondo_class_elements);
+      }
+      else
+      {
+        const no_classes_found_html=(<>
+          <div key="error_key">
+          <h1>No Taekwondo Classes Found.</h1>
+          <h2>Try changing some of the filters</h2>
+          </div>
+          </>
+        )
+        setTaekwondo_Elements_Mapped(no_classes_found_html);
+      }
   }
 
   //Update the sort column and sort direction values
